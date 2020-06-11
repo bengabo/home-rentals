@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "home-rentals": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "home-rentals"
+    }
+  },
+  "defaultProject": "home-rentals",
+  "cli": {
+    "analytics": "b1989c6b-b929-4303-911f-bfd4cc8b2f4f"
+  }
 }
