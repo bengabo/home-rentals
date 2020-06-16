@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomesComponent } from './homes/homes.component';
 import { HomeTypeFilterComponent } from './home-type-filter/home-type-filter.component';
+import { HomeSearchComponent } from './home-search/home-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomesComponent,
-    HomeTypeFilterComponent
+    HomeTypeFilterComponent,
+    HomeSearchComponent
   ],
   imports: [
     BrowserModule,
