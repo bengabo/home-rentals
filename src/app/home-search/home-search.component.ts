@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-search',
@@ -7,17 +8,23 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class HomeSearchComponent implements OnInit {
 
+  @Input() defaultSearch;
+  @Output() applied = new EventEmitter();
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      search: []
+      search: [this.defaultSearch]
     });
 
-    this.form.get('search').valueChanges.subscribe(value => {
-      console.log(value);
+    this.form.get('search').valueChanges
+    .pipe(
+      debounceTime(500)
+    )
+    .subscribe(value => {
+      this.applied.emit(value);
     })
   }
 

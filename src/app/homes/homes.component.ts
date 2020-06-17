@@ -11,7 +11,8 @@ export class HomesComponent implements OnInit {
 
   homeTypeDrowndownOpen: boolean = false;
   currentHomeTypeFilters: string[] = [];
-
+  currentSearch: string = '';
+  
   homes$ = this.dataService.homes$;
 
   constructor(
@@ -24,13 +25,28 @@ export class HomesComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       const homeTypeFilters = params['home-type'] || [];
-      this.dataService.loadHomes(homeTypeFilters);
+      const searchString = params.search || '';
+      this.dataService.loadHomes(homeTypeFilters, searchString);
       this.currentHomeTypeFilters = homeTypeFilters;
+      this.currentSearch = searchString;
     })
   }
 
   homeTypeFilterApplied($event) {
+
     this.homeTypeDrowndownOpen = false;
-    this.router.navigate(['homes'], { queryParams: { 'home-type': $event}});
+
+    const params = this.route.snapshot.queryParams;
+    const homeType = { 'home-type': $event };
+
+    this.router.navigate(['homes'], { queryParams: { ...params, ...homeType }});
+  }
+
+  searchApplied($event) {
+
+    const params = this.route.snapshot.queryParams;
+    const search = { search: $event };
+
+    this.router.navigate(['homes'], { queryParams: { ...params, ...search }});
   }
 }
